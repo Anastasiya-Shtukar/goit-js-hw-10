@@ -1,0 +1,49 @@
+.input-button {
+  margin-top: 24px;
+  margin-left: 24px;
+  width: 310px;
+}
+
+.timer-input {
+  width: 245px;
+  height: 24px;
+}
+
+.timer-button {
+  width: 50px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  color: rgba(0, 0, 0, 1);
+}
+
+.timer-button:disabled {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.timer-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.timer {
+  display: flex;
+  gap: 24px;
+  margin-left: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 0px;
+}
+
+.value {
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.label {
+  text-transform: uppercase;
+}
