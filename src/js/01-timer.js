@@ -5,7 +5,10 @@ const inputDateTime = document.querySelector('input#datetime-picker');
 const startBtn = document.querySelector('.timer-button');
 
 let date = new Date();
-console.log(date.getTime());
+let dateGetTime = date.getTime();
+
+let userSelectedDate;
+let userSelectedDateGetTime;
 
 const options = {
   enableTime: true,
@@ -14,10 +17,11 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     console.log(selectedDates[0]);
-    let userSelectedDateGetTime = selectedDates[0];
-    console.log(userSelectedDateGetTime.getTime());
+    userSelectedDate = selectedDates[0];
+    userSelectedDateGetTime = userSelectedDate.getTime();
+    console.log(userSelectedDateGetTime);
 
-    if (userSelectedDateGetTime.getTime() <= date.getTime()) {
+    if (userSelectedDateGetTime <= date.getTime()) {
       startBtn.setAttribute('disabled', 'true');
       return window.alert('Please choose a date in the future');
     } else {
@@ -26,8 +30,7 @@ const options = {
   },
 };
 
-let userSelectedDate = inputDateTime.textContent;
-console.log(userSelectedDate);
+flatpickr(inputDateTime, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -48,8 +51,29 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+const days = document.querySelector('.value[data-days]');
+const hours = document.querySelector('.value[data-hours]');
+const minutes = document.querySelector('.value[data-minutes]');
+const seconds = document.querySelector('.value[data-seconds]');
+
 startBtn.addEventListener('click', event => {
   event.preventDefault();
-});
+  let ms = userSelectedDateGetTime - dateGetTime;
 
-flatpickr(inputDateTime, options);
+  const objectConvertMs = convertMs(ms);
+
+  function timer() {
+    ms = ms - 1;
+    days.textContent = objectConvertMs.days;
+    hours.textContent = objectConvertMs.hours;
+    minutes.textContent = objectConvertMs.minutes;
+    seconds.textContent = objectConvertMs.seconds;
+    if (ms <= 0) {
+      clearInterval(counter);
+      return;
+    }
+  }
+  const counter = setInterval(timer, 1000);
+
+  return;
+});
