@@ -23,23 +23,19 @@ const promise = new Promise((resolve, reject) => {
 btnCreateNotification.addEventListener('click', event => {
   event.preventDefault();
 
-  setTimeout(() => {
-    if (radioFulfilled.checked) {
-      izitoast.success({
-        title: '',
-        message: `✅ Fulfilled promise in ${delay.value}ms`,
-        position: 'topRight',
-      });
-    } else {
-      izitoast.error({
-        title: '',
-        message: `❌ Rejected promise in ${delay.value}ms`,
-        position: 'topRight',
-      });
-    }
+  if (radioFulfilled.checked) {
+    izitoast.success({
+      title: '',
+      message: `✅ Fulfilled promise in ${delay.value}ms`,
+      position: 'topRight',
+    });
+  } else {
+    izitoast.error({
+      title: '',
+      message: `❌ Rejected promise in ${delay.value}ms`,
+      position: 'topRight',
+    });
+  }
 
-    promise
-      .then(value => console.log(value))
-      .catch(error => console.log(error));
-  }, delay.value);
+  promise.then(value => console.log(value)).catch(error => console.log(error));
 });
