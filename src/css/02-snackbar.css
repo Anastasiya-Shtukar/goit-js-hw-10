@@ -1,0 +1,26 @@
+.form {
+  margin-top: 24px;
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  gap: 16px;
+}
+
+.input-delay {
+  width: 240px;
+  height: 35px;
+}
+
+.result-selection {
+  width: 223px;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn-create-notification {
+  width: 250px;
+  margin: 0;
+  padding: 0;
+}

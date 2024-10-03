@@ -1,5 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import izitoast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const inputDateTime = document.querySelector('input#datetime-picker');
 const startBtn = document.querySelector('.timer-button');
@@ -23,7 +25,12 @@ const options = {
 
     if (userSelectedDateGetTime <= date.getTime()) {
       startBtn.setAttribute('disabled', 'true');
-      return window.alert('Please choose a date in the future');
+
+      return izitoast.error({
+        title: '',
+        message: 'Please choose a date in the future',
+        position: 'topRight',
+      });
     } else {
       startBtn.removeAttribute('disabled');
     }
@@ -51,6 +58,10 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
+}
+
 const days = document.querySelector('.value[data-days]');
 const hours = document.querySelector('.value[data-hours]');
 const minutes = document.querySelector('.value[data-minutes]');
@@ -58,12 +69,12 @@ const seconds = document.querySelector('.value[data-seconds]');
 
 startBtn.addEventListener('click', event => {
   event.preventDefault();
-  let ms = userSelectedDateGetTime - dateGetTime;
-
-  const objectConvertMs = convertMs(ms);
 
   function timer() {
-    ms = ms - 1;
+    let ms = userSelectedDateGetTime - dateGetTime;
+    let objectConvertMs = convertMs(ms);
+    ms = ms - 1000;
+    objectConvertMs;
     days.textContent = objectConvertMs.days;
     hours.textContent = objectConvertMs.hours;
     minutes.textContent = objectConvertMs.minutes;
