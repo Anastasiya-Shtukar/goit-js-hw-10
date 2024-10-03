@@ -10,23 +10,11 @@ const btnCreateNotification = document.querySelector(
 
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    if (radioFulfilled.checked) {
-      resolve(
-        izitoast.success({
-          title: '',
-          message: `✅ Fulfilled promise in ${delay.value}ms`,
-          position: 'topRight',
-        })
-      );
+    if (radioFulfilled.checked === true) {
+      resolve(`✅ Fulfilled promise in ${delay.value}ms`);
       return;
     } else {
-      reject(
-        izitoast.error({
-          title: '',
-          message: `❌ Rejected promise in ${delay.value}ms`,
-          position: 'topRight',
-        })
-      );
+      reject(`❌ Rejected promise in ${delay.value}ms`);
       return;
     }
   }, delay.value);
@@ -53,6 +41,5 @@ btnCreateNotification.addEventListener('click', event => {
     promise
       .then(value => console.log(value))
       .catch(error => console.log(error));
-    console.log(radioFulfilled.checked);
   }, delay.value);
 });
