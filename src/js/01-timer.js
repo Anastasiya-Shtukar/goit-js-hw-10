@@ -70,15 +70,25 @@ const seconds = document.querySelector('.value[data-seconds]');
 startBtn.addEventListener('click', event => {
   event.preventDefault();
 
+  function addLeadingZero(value) {
+    return String(value).padStart(2, '0');
+  }
+
   function timer() {
     let ms = userSelectedDateGetTime - dateGetTime;
+
+    setInterval(() => {
+      ms = ms - 1000;
+    }, 1000);
+    console.log(ms);
     let objectConvertMs = convertMs(ms);
-    ms = ms - 1000;
-    objectConvertMs;
+
     days.textContent = objectConvertMs.days;
     hours.textContent = objectConvertMs.hours;
     minutes.textContent = objectConvertMs.minutes;
     seconds.textContent = objectConvertMs.seconds;
+
+    addLeadingZero(days.textContent);
     if (ms <= 0) {
       clearInterval(counter);
       return;
