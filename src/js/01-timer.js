@@ -33,7 +33,7 @@ const options = {
       return izitoast.error({
         title: '',
         message: 'Please choose a date in the future',
-        position: 'topRight',
+        position: 'topCenter',
       });
     } else {
       startBtn.removeAttribute('disabled');
