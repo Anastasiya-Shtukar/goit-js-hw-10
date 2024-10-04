@@ -7,7 +7,11 @@ const inputDateTime = document.querySelector('input#datetime-picker');
 const startBtn = document.querySelector('.timer-button');
 
 let date = new Date();
-let dateGetTime = date.getTime();
+
+const leftDays = document.querySelector('.value[data-days]');
+const leftHours = document.querySelector('.value[data-hours]');
+const leftMinutes = document.querySelector('.value[data-minutes]');
+const leftSeconds = document.querySelector('.value[data-seconds]');
 
 let userSelectedDate;
 let userSelectedDateGetTime;
@@ -39,6 +43,13 @@ const options = {
 
 flatpickr(inputDateTime, options);
 
+function addZeroSpan({ days, hours, minutes, seconds }) {
+  leftDays.textContent = addLeadingZero(days);
+  leftHours.textContent = addLeadingZero(hours);
+  leftMinutes.textContent = addLeadingZero(minutes);
+  leftSeconds.textContent = addLeadingZero(seconds);
+}
+
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -62,39 +73,24 @@ function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
-const days = document.querySelector('.value[data-days]');
-const hours = document.querySelector('.value[data-hours]');
-const minutes = document.querySelector('.value[data-minutes]');
-const seconds = document.querySelector('.value[data-seconds]');
+startBtn.addEventListener('click', timer);
 
-startBtn.addEventListener('click', event => {
+function timer(event) {
   event.preventDefault();
+  startBtn.setAttribute('disabled', 'true');
+  const counter = setInterval(() => {
+    const newDate = new Date();
+    const ms = userSelectedDate - newDate;
 
-  function addLeadingZero(value) {
-    return String(value).padStart(2, '0');
-  }
-
-  function timer() {
-    let ms = userSelectedDateGetTime - dateGetTime;
-
-    setInterval(() => {
-      ms = ms - 1000;
-    }, 1000);
-    console.log(ms);
-    let objectConvertMs = convertMs(ms);
-
-    days.textContent = objectConvertMs.days;
-    hours.textContent = objectConvertMs.hours;
-    minutes.textContent = objectConvertMs.minutes;
-    seconds.textContent = objectConvertMs.seconds;
-
-    addLeadingZero(days.textContent);
     if (ms <= 0) {
       clearInterval(counter);
+      startBtn.removeAttribute('disabled');
       return;
     }
-  }
-  const counter = setInterval(timer, 1000);
+
+    const leftTime = convertMs(ms);
+    addZeroSpan(leftTime);
+  }, 1000);
 
   return;
-});
+}
