@@ -78,6 +78,7 @@ startBtn.addEventListener('click', timer);
 function timer(event) {
   event.preventDefault();
   startBtn.setAttribute('disabled', 'true');
+  inputDateTime.setAttribute('disabled', 'true');
   const counter = setInterval(() => {
     const newDate = new Date();
     const ms = userSelectedDate - newDate;
@@ -85,6 +86,7 @@ function timer(event) {
     if (ms <= 0) {
       clearInterval(counter);
       startBtn.removeAttribute('disabled');
+      inputDateTime.removeAttribute('disabled');
       return;
     }
 
